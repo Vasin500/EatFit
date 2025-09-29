@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #f4f4f4;
+    }
+    #logoutBtn {
+      padding: 8px 15px;
+      border: none;
+      background-color: #e74c3c;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #logoutBtn:hover {
+      background-color: #c0392b;
+    }
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .profile img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #333;
+    }
+    .profile input {
+      display: none; /* ซ่อน input */
+    }
+    .info-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .info-text h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    #userInfo {
+      margin: 5px 0 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    main {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .card-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .card {
+      width: 300px;
+      padding: 20px;
+      background-color: #3498db;
+      border-radius: 15px;
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .card label {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .card input, .card select {
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      margin-top: 5px;
+    }
+
+    #calculateBtn {
+      margin-top: 10px;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2ecc71;
+      color: white;
+      cursor: pointer;
+    }
+
+    #calculateBtn:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+  <!--------------------------- ข้อมูลข้างบน ----------------------------------->
+  <header>
+    <!-- ฝั่งซ้าย -->
+    <div class="left-section">
+      <div class="profile" id="profileContainer">
+        <img id="profilePic" src="default-avatar.png" alt="โปรไฟล์" title="คลิกเพื่อเปลี่ยนรูป">
+        <input type="file" id="uploadPic" accept="image/*">
+      </div>
+      <div class="info-text">
+        <h2>ยินดีต้อนรับ</h2>
+        <p id="userInfo"></p>
+      </div>
+    </div>
+
+    <!-- ฝั่งขวา -->
+    <button id="logoutBtn">ออกจากระบบ</button>
+  </header>
+
+  <!--------------------------- ข้อมูลภายใน ----------------------------------->
+  <main>
+    <div class="card-container">
+      <!-- กรอบ 1: ข้อมูลผู้ใช้ -->
+      <div class="card" id="card1">
+        <h3>ข้อมูลผู้ใช้</h3>
+        <label>เพศ:
+          <select id="gender">
+            <option value="male">ชาย</option>
+            <option value="female">หญิง</option>
+          </select>
+        </label>
+        <label>อายุ:
+          <input type="number" id="age" placeholder="ปี">
+        </label>
+        <label>ส่วนสูง (cm):
+          <input type="number" id="height" placeholder="เช่น 170">
+        </label>
+        <label>น้ำหนัก (kg):
+          <input type="number" id="weight" placeholder="เช่น 60">
+        </label>
+        <button id="calculateBtn">คำนวณ BMI</button>
+      </div>
+
+      <!-- กรอบ 2: แสดงผล BMI -->
+      <div class="card" id="card2">
+        <h3>ผลลัพธ์</h3>
+        <p id="bodyType">รูปร่าง:</p> <!-- บรรทัดแสดงรูปร่าง -->
+        <p id="bmiResult">การกิน:</p>
+      </div>
+
+      <!-- กรอบ 3: ว่างไว้ -->
+      <div class="card" id="card3">
+        <h3>บันทึกการกินออกกำลัง</h3>
+        <p>COMING SOON</p>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRXqmB33Alumlgxb6OEHNdJ5L_5B4ha5A",
+      authDomain: "game-killer-82700.firebaseapp.com",
+      projectId: "game-killer-82700",
+      storageBucket: "game-killer-82700.firebasestorage.app",
+      messagingSenderId: "1020819084097",
+      appId: "1:1020819084097:web:05b76622dd6bae2d25c7c0",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const profilePic = document.getElementById("profilePic");
+    const uploadPic = document.getElementById("uploadPic");
+    const profileContainer = document.getElementById("profileContainer");
+
+    // โหลดรูปจาก localStorage
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      profilePic.src = savedPic;
+    }
+
+    // คลิกที่รูปเพื่อเปิด file picker
+    profileContainer.addEventListener("click", () => {
+      uploadPic.click();
+    });
+
+    // อัปเดตรูปเมื่อเลือกใหม่
+    uploadPic.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const base64Img = event.target.result;
+          profilePic.src = base64Img;
+          localStorage.setItem("profilePic", base64Img); // เซฟไว้
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("userInfo").innerText = user.displayName || user.email;
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth).then(() => {
+        window.location.href = "login.html";
+      });
+    });
+
+    const calculateBtn = document.getElementById('calculateBtn');
+    const bmiResult = document.getElementById('bmiResult');
+    const bodyType = document.getElementById('bodyType');
+
+    calculateBtn.addEventListener('click', () => {
+      const gender = document.getElementById('gender').value;
+      const age = parseFloat(document.getElementById('age').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+
+      if (!age || !height || !weight) {
+        bmiResult.innerText = "กรุณากรอกข้อมูลให้ครบทุกช่อง";
+        bodyType.innerText = "";
+        return;
+      }
+      
+      const heightM = height / 100; // แปลง cm เป็น m
+      const bmiValue = weight / (heightM * heightM);
+
+      let shape;
+      if (bmiValue < 16) {
+        shape = "ผอมมาก";
+      } else if (bmiValue < 18.5) {
+        shape = "ผอม";
+      } else if (bmiValue < 25) {
+        shape = "พอดี";
+      } else if (bmiValue < 30) {
+        shape = "อ้วน";
+      } else {
+        shape = "อ้วนเกิน";
+      }
+      bodyType.innerText = `รูปร่าง: ${shape}`;
+
+      let bmi;
+      if (gender === "male") {
+        bmi = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+      } else {
+        bmi = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+      }
+      
+      let aio;
+      if (shape === "ผอมมาก" || shape === "ผอม") {
+        aio = "ควรบริโภคมากกว่า";
+      } else if (shape === "พอดี") {
+        aio = "ควรบริโภค";
+      } else {
+        aio = "ควรบริโภคน้อยกว่า";
+      }
+
+      bmiResult.innerText = `${aio}: ${bmi.toFixed(2)} kcal`;
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f4f4;
+}
+
+.center-box {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 8px;
+  width: 80%;
+}
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
