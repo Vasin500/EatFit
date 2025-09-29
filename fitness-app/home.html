@@ -224,13 +224,13 @@
       if (user) {
         document.getElementById("userInfo").innerText = user.displayName || user.email;
       } else {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       }
     });
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
       signOut(auth).then(() => {
-        window.location.href = "login.html";
+        window.location.href = "index.html";
       });
     });
 
