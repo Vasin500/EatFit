@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>สมัครสมาชิก</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>สร้างบัญชีใหม่</h2>
+        <form id="signup-form">
+            <input type="text" id="signup-username" placeholder="ชื่อผู้ใช้ (Username)" required>
+            <input type="email" id="signup-email" placeholder="อีเมล" required>
+            <input type="password" id="signup-password" placeholder="รหัสผ่าน (6 ตัวอักษรขึ้นไป)" required>
+            <button type="submit" class="btn">ตกลง</button>
+        </form>
+        <a href="login.html" class="small-link">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ</a>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>

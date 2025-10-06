@@ -1,28 +1,173 @@
+/* General Styling */
 body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f4f4f4;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    color: #333;
+    
+    /* --- ส่วนที่แก้ไข --- */
+    min-height: 100vh; /* ใช้ min-height แทน height เพื่อให้ body ยืดได้ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* เพิ่มช่องว่างบนล่างเล็กน้อย */
+    box-sizing: border-box; /* ทำให้ padding ไม่กระทบขนาด */
 }
 
-.center-box {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  text-align: center;
+/* Containers for auth pages */
+.auth-container, .form-container {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
 }
 
-input {
-  display: block;
-  margin: 10px auto;
-  padding: 8px;
-  width: 80%;
+h1 {
+    color: #4CAF50;
 }
-button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
+
+h2 {
+    margin-bottom: 20px;
+}
+
+/* Form elements */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.small-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Home Page Layout */
+.home-container {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh; /* กำหนดความสูงของกรอบหลัก */
+    background: #f4f4f9; /* เปลี่ยนพื้นหลังกรอบหลักเป็นสีเทาอ่อน */
+    box-shadow: 0 4px M10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden; /* ป้องกันเนื้อหาล้นกรอบ */
+}
+
+.left-panel {
+    flex: 1; /* กำหนดสัดส่วนความกว้าง */
+    padding: 20px;
+    background: white; /* << ทำให้ panel ซ้ายเป็นสีขาว */
+    border-right: 1px solid #eee;
+    
+    /* --- นี่คือส่วนสำคัญที่ทำให้ Layout ทำงาน --- */
+    display: flex;
+    flex-direction: column; /* จัดเรียงเนื้อหาข้างในเป็นแนวตั้ง */
+    /* ความสูงของ left-panel จะยืดเต็ม container โดยอัตโนมัติ */
+    overflow-y: auto;
+}
+
+.main-content {
+    flex: 3; /* กำหนดสัดส่วนความกว้าง ให้กว้างกว่าด้านซ้าย */
+    padding: 20px;
+    background: #f4f4f9; /* พื้นหลังส่วนเนื้อหา */
+}
+
+/* Profile Section */
+.profile-section img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid #ddd;
+}
+
+input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.btn-upload {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#username-display {
+    margin: 15px 0;
+}
+
+/* Info & Result Section */
+.info-section {
+    width: 90%;
+    margin-top: 20px;
+}
+
+.result-box {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+/* Calories Display */
+.calories-display {
+    text-align: center;
+    padding: 40px;
+    background-color: #e9f5e9;
+    border-radius: 8px;
+}
+
+.calories-display h2 {
+    color: #4CAF50;
+}
+
+.calories-display p {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+}
+
+#logout-button {
+    margin-top: auto;  /* << MAGIC! ดัน element นี้ให้ไปอยู่ล่างสุดของ flex container */
+    width: 90%;
+    align-self: center; /* จัดให้อยู่กลางแนวนอน */
 }
