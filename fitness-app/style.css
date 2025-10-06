@@ -61,13 +61,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     background-color: #45a049;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-}
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
 .small-link {
     display: block;
     margin-top: 15px;
@@ -105,6 +98,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     flex: 3; /* กำหนดสัดส่วนความกว้าง ให้กว้างกว่าด้านซ้าย */
     padding: 20px;
     background: #f4f4f9; /* พื้นหลังส่วนเนื้อหา */
+    overflow-y: auto;
 }
 
 /* Profile Section */
@@ -166,8 +160,69 @@ input[type="file"] {
     color: #333;
 }
 
+/* --- ส่วนตั้งเป้าหมาย --- */
+.goal-setter-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.goal-setter-container h3 {
+    text-align: center;
+    margin-top: 0;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 95%; /* แก้ไขจาก 100% เพื่อให้ padding แสดงผลสวยงาม */
+}
+
+/* --- ส่วนแสดงผลแคลอรี่ตามเป้าหมาย --- */
+.goal-result {
+    margin-top: 20px;
+    background-color: #d4edda; /* สีเขียวอ่อน */
+    border: 1px solid #c3e6cb;
+}
+
+.goal-result h2 {
+    color: #155724; /* สีเขียวเข้ม */
+}
+
+.goal-result p {
+    color: #155724;
+}
+
+.goal-result small {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #155724;
+}
+
+/* --- ปุ่มสีแดง (ออกจากระบบ) --- */
+.btn-danger {
+    background-color: #dc3545; /* แดงเข้ม */
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* แดงเข้มขึ้นเมื่อเมาส์ชี้ */
+}
+
 #logout-button {
-    margin-top: auto;  /* << MAGIC! ดัน element นี้ให้ไปอยู่ล่างสุดของ flex container */
+    margin-top: auto;  /* ดัน element นี้ให้ไปอยู่ล่างสุดของ flex container */
+    margin-bottom: 20px; /* << เพิ่มระยะห่างด้านล่าง 20px */
     width: 90%;
     align-self: center; /* จัดให้อยู่กลางแนวนอน */
 }

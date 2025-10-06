@@ -33,16 +33,39 @@
                 </div>
             </div>
 
-            <button id="logout-button" class="btn btn-secondary">ออกจากระบบ</button>
+            <button id="logout-button" class="btn btn-danger">ออกจากระบบ</button>
 
         </div>
 
         <div class="main-content">
+    
             <div class="calories-display">
-                <h2>แคลอรี่ที่แนะนำต่อวัน</h2>
-                <p id="calories-result">-</p>
+                <h2>แคลอรี่พื้นฐานที่ต้องใช้ต่อวัน (เพื่อรักษาน้ำหนัก)</h2>
+                <p id="maintenance-calories-result">-</p>
             </div>
+
+            <div class="goal-setter-container">
+                <h3>ตั้งเป้าหมายของคุณ</h3>
+                <form id="goal-setter-form">
+                    <div class="form-group">
+                        <label for="target-weight">น้ำหนักที่ต้องการ (kg)</label>
+                        <input type="number" id="target-weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="target-date">ภายในวันที่</label>
+                        <input type="date" id="target-date" required>
+                    </div>
+                    <button type="submit" class="btn">คำนวณแคลอรี่ตามเป้าหมาย</button>
+                </form>
             </div>
+            
+            <div id="goal-calories-display" class="calories-display goal-result" style="display: none;">
+                <h2>คุณควรกินวันละ</h2>
+                <p id="goal-calories-result">-</p>
+                <small id="goal-message"></small>
+            </div>
+
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
